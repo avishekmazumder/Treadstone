@@ -1,0 +1,56 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jms
+        http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
+
+	<context:component-scan base-package="com.avi"/>
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+	
+	<!-- Beans For Spring JMS using Apache ActiveMQ -->
+<!-- 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">  
+ 		<property name="brokerURL" value="tcp://localhost:61616" />
+ 	</bean> -->
+ 	
+ 	<!-- JmsTemplate for sender bean injection -->
+<!--  	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+ 		<constructor-arg name="connectionFactory" ref="connectionFactory"/>  
+		<property name="defaultDestinationName" value="avi.queue.test"/>  
+ 	</bean>
+ 	
+ 	<bean id="myMessageListener" class="com.avi.jms.listener.MyMessageListener"/> 	
+ 	
+ 	Jms listener Bean configuration Style 
+ 	<bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    	<property name="connectionFactory" ref="connectionFactory" />
+    	<property name="destinationName" value="avi.queue.test" />
+    	<property name="messageListener" ref="myMessageListener" />
+	</bean> -->
+	
+	<!-- Jms listener Bean configuration Style 2 #Read up on it -->
+	<!--  	
+ 	<jms:listener-container container-type="default" connection-factory="connectionFactory" acknowledge="auto">
+ 		<jms:listener destination="avi.queue.test" ref="listener" method="onMessage"/>  
+ 	</jms:listener-container> 
+ 	-->	
+
+</beans>
